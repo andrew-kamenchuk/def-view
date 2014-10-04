@@ -1,0 +1,24 @@
+{
+    "name": "def/view",
+    "description": "simple view helpers",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "andrew-kamenchuk",
+            "email": "andrew.kamenchuk@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+			"php":">=5.4"
+    },
+    "autoload": {
+			"psr-4" : {
+				"def\\View\\":""
+			}
+    },
+    "suggest": {
+			"twig/twig": "To use simple twig template engine adapter",
+			"smarty/smarty": "To use simple smarty template engine adapters"
+    }
+}
