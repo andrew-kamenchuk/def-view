@@ -23,4 +23,13 @@ class Strategy extends View
 
 		return parent::fetch($data);
 	}
+
+	public function __clone()
+	{
+		parent::__clone();
+
+		foreach($this->views as $key => $view) {
+			$this->views[$key] = clone $view;
+		}
+	}
 }

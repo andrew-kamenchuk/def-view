@@ -97,12 +97,12 @@ use def\View\View;
 
 
 $view = new Composite(function(array $data) {
-	return "{$data['greating']}\n==={$data['body']}===\n";
+	return "{$data['greeting']}\n==={$data['body']}===\n";
 });
 
 $view->attach(new View(function($data) {
 	return "Hello, {$data['username']}!";	
-}), 'greating');
+}), 'greeting');
 
 $view->attach(new View(function($data) {
 	return "Here is some content, {$data['username']}";	
