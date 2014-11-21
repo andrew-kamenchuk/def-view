@@ -1,5 +1,7 @@
 {
     "name": "def/view",
+    "type": "library",
+    "homepage": "https://github.com/andrew-kamenchuk/def-view",
     "description": "simple view helpers",
     "license": "MIT",
     "authors": [
@@ -8,17 +10,16 @@
             "email": "andrew.kamenchuk@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
     "require": {
-			"php":">=5.4"
+      "php":">=5.4"
     },
     "autoload": {
-			"psr-4" : {
-				"def\\View\\":""
-			}
+      "psr-4" : {
+        "def\\View\\":""
+      }
     },
     "suggest": {
-			"twig/twig": "To use simple twig template engine adapter",
-			"smarty/smarty": "To use simple smarty template engine adapters"
+      "twig/twig": "To use simple twig template engine adapter",
+      "smarty/smarty": "To use simple smarty template engine adapters"
     }
 }
