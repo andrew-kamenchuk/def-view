@@ -7,8 +7,11 @@ class Template extends View
 
 	protected $useIncludePath = false;
 
-	public function __construct()
+	public function __construct($path = null)
 	{
+		if(isset($path))
+			$this->addPath($path);
+
 		parent::__construct(function(array $data) {
 			if(false !== $template = $this->findTemplate($this->filename)) {
 				return fetchTemplate($template, $data);

@@ -5,8 +5,10 @@ class Json extends View
 {
 	protected $options = 0;
 
-	public function __construct()
+	public function __construct($json_options = 0)
 	{
+		$this->options = $json_options;
+
 		parent::__construct(function(array $data) {
 			return \json_encode($data, $this->options);
 		});
