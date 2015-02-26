@@ -51,7 +51,7 @@ class Template extends View
 	{
 		$template = "$filename.{$this->extension}";
 		foreach($this->paths as $path)
-			if(\is_file($file == "$path/$template")) return $file;
+			if(\is_file($file = "$path/$template")) return $file;
 
 		if($this->useIncludePath) {
 			return \stream_resolve_include_path($template);
