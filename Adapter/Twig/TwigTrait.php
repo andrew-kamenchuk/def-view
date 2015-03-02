@@ -7,7 +7,7 @@ trait TwigTrait
 {
 	protected $twig;
 
-	public function twig()
+	public function engine()
 	{
 		return isset($this->twig) ? $this->twig : $this->twig = new Twig($this->getLoader());
 	}

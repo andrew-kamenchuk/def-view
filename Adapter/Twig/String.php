@@ -8,12 +8,14 @@ class String extends View
 {
 	use TwigTrait;
 
-	protected $template = '';
+	protected $template;
 
-	public function __construct()
+	public function __construct($template = null)
 	{
+		$this->template($template);
+
 		parent::__construct(function(array $data) {
-			return $this->twig()->render($this->template, $data);
+			return $this->engine()->render($this->template, $data);
 		});
 	}
 
