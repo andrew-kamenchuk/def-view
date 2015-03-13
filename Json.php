@@ -5,10 +5,8 @@ class Json extends View
 {
 	protected $options = 0;
 
-	public function __construct($option = 0)
+	public function __construct()
 	{
-		$this->setOption($option);
-
 		parent::__construct(function(array $data) {
 			return \json_encode($data, $this->options);
 		});
@@ -21,7 +19,7 @@ class Json extends View
 
 	public function hasOption($option)
 	{
-		return (bool) $this->options & $option;
+		return (bool) ($this->options & $option);
 	}
 
 	public function removeOption($option)

@@ -38,7 +38,9 @@ class View
 		if(1 == \func_num_args())
 			return $this->filters[$key];
 
-		$this->filters[$key] = $filter;
+		if(isset($filter)) 
+			$this->filters[$key] = $filter;
+
 		return $this;
 	}
 

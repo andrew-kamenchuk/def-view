@@ -10,10 +10,8 @@ class String extends View
 
 	protected $template;
 
-	public function __construct($template = null)
+	public function __construct()
 	{
-		$this->template($template);
-
 		parent::__construct(function(array $data) {
 			return $this->engine()->render($this->template, $data);
 		});

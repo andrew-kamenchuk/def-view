@@ -11,9 +11,13 @@ class Strategy extends View
 		return $this;
 	}
 
-	public function  has($key)
+	public function  has($view)
 	{
-		return isset($this->views[$key]);
+		if($view instanceOf View && false === $view = \array_search($view, $this->views, true)) {
+			return false;
+		}
+
+		return isset($this->views[$view]);
 	}
 
 	public function fetch(array $data = [], $key = null)

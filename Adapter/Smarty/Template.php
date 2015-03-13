@@ -9,10 +9,8 @@ class Template extends TemplateEngineAdapter
 {
 	protected $smarty;
 
-	public function __construct($path = null)
+	public function __construct()
 	{
-		parent::__construct($path);
-
 		View::__construct(function(array $data) {
 			return $this->engine()->createTemplate("{$this->filename}.{$this->extension}", null, null, $data)->fetch();
 		});
