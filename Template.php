@@ -47,7 +47,7 @@ class Template extends View
 			->filename($info['filename'])->extension($info['extension']);
 	}
 
-	public function findTemplate($filename)
+	protected function findTemplate($filename)
 	{
 		$template = "$filename.{$this->extension}";
 		foreach($this->paths as $path)

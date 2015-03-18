@@ -4,6 +4,7 @@ namespace def\View\Adapter\Twig;
 use def\View\View;
 use def\View\Adapter\TemplateEngineAdapter;
 use Twig_Loader_Filesystem as Loader;
+use Twig_Error_Loader;
 
 class Template extends TemplateEngineAdapter
 {
@@ -16,15 +17,15 @@ class Template extends TemplateEngineAdapter
 		});
 	}
 
-	public function addPath($path)
+	public function addPath($path, $namespace = Loader::MAIN_NAMESPACE)
 	{
-		$this->engine()->getLoader()->addPath($path);
+		$this->engine()->getLoader()->addPath($path, $namespace);
 		return parent::addPath($path);
 	}
 
-	public function prependPath($path)
+	public function prependPath($path, $namespace = Loader::MAIN_NAMESPACE)
 	{
-		$this->engine()->getLoader()->prependPath($path);
+		$this->engine()->getLoader()->prependPath($path, $namespace);
 		return parent::prependPath($path);
 	}
 
