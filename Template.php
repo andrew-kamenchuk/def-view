@@ -11,9 +11,19 @@ class Template extends View
 	{
 		parent::__construct(function(array $data) {
 			if(false !== $template = $this->findTemplate($this->filename)) {
-				return fetchTemplate($template, $data);
+				return static::fetchTemplate($template, $data);
 			}
 		});
+	}
+
+	protected static function fetchTemplate()
+	{
+		\extract(\func_get_arg(1));
+		if(!\ob_start()) {
+			return;
+		}
+		include \func_get_arg(0);
+		return \ob_get_clean();
 	}
 
 	public function addPath($path)
@@ -65,17 +75,4 @@ class Template extends View
 		$this->useIncludePath = (bool) $use;
 	}
 
-}
-
-/**
- * Context independent template include
- * @param string 0 - template filepath
- * @param array  1 - variables data
- */
-function fetchTemplate()
-{
-	extract(\func_get_arg(1));
-	\ob_start();
-	include \func_get_arg(0);
-	return \ob_get_clean();
 }
