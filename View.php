@@ -3,7 +3,7 @@ namespace def\View;
 
 class View
 {
-	use Data;
+	use DataTrait;
 
 	/**
 	 * @var callable|null

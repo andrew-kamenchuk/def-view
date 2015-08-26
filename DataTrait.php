@@ -1,7 +1,7 @@
 <?php
 namespace def\View;
 
-trait Data
+trait DataTrait
 {
 	/**
 	 * @var array
