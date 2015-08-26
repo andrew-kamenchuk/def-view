@@ -3,6 +3,9 @@ namespace def\View;
 
 class Delegate extends View
 {
+	/**
+	 * @var View
+	 */
 	protected $view;
 
 	public function __construct(callable $formatter)
@@ -12,10 +15,12 @@ class Delegate extends View
 		});
 	}
 
+	/**
+	 * @param View|null $view
+	 * @return View|null
+	 */
 	public function view(View $view = null)
 	{
-		return 0 == \func_num_args() ? $this->view : $this->view = $view;
+		return isset($view) ? $this->view = $view : $this->view;
 	}
 }
-
-
