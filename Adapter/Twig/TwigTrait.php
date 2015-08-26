@@ -5,9 +5,15 @@ use Twig_Environment as Twig;
 
 trait TwigTrait
 {
+	/**
+	 * @var Twig_Environment
+	 */
 	protected $twig;
 
-	public function engine()
+	/**
+	 * @return Twig_Environment
+	 */
+	public function twig()
 	{
 		return isset($this->twig) ? $this->twig : $this->twig = new Twig($this->getLoader());
 	}

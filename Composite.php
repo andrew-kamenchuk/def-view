@@ -20,10 +20,10 @@ class Composite extends View
 	}
 
 	/**
-	 *  @param View $view
-	 *	@param string|null $key
-	 *	@param boolean $append
-	 *	@return View
+	 * @param View $view
+	 * @param string|null $key
+	 * @param boolean $append
+	 * @return View
 	 */
 	public function attach(View $view, $key = null, $append = false)
 	{

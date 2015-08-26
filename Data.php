@@ -103,12 +103,4 @@ trait Data
 		$this->filters[$key] = $filter;
 	}
 
-	/**
-	 * @return array
-	 */
-	public function __debugInfo()
-	{
-		return $this->data;
-	}
-
 }

@@ -13,7 +13,7 @@ class String extends View
 	public function __construct()
 	{
 		parent::__construct(function(array $data) {
-			return $this->engine()->render($this->template, $data);
+			return $this->twig()->render($this->template, $data);
 		});
 	}
 

@@ -2,30 +2,30 @@
 namespace def\View\Adapter\Twig;
 
 use def\View\View;
-use def\View\Adapter\TemplateEngineAdapter;
+use def\View\Template as Base;
 use Twig_Loader_Filesystem as Loader;
 use Twig_Error_Loader;
 
-class Template extends TemplateEngineAdapter
+class Template extends Base
 {
 	use TwigTrait;
 
 	public function __construct()
 	{
 		View::__construct(function(array $data) {
-			return $this->engine()->render("{$this->filename}.{$this->extension}", $data);
+			return $this->twig()->render("{$this->filename}.{$this->extension}", $data);
 		});
 	}
 
 	public function addPath($path, $namespace = Loader::MAIN_NAMESPACE)
 	{
-		$this->engine()->getLoader()->addPath($path, $namespace);
+		$this->twig()->getLoader()->addPath($path, $namespace);
 		return parent::addPath($path);
 	}
 
 	public function prependPath($path, $namespace = Loader::MAIN_NAMESPACE)
 	{
-		$this->engine()->getLoader()->prependPath($path, $namespace);
+		$this->twig()->getLoader()->prependPath($path, $namespace);
 		return parent::prependPath($path);
 	}
 
