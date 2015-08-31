@@ -2,7 +2,7 @@
 namespace def\View\Adapter\Twig;
 
 use def\View\View;
-use Twig_Loader_String as Loader;
+use Twig_Loader_Array as Loader;
 
 class String extends View
 {
@@ -13,7 +13,8 @@ class String extends View
 	public function __construct()
 	{
 		parent::__construct(function(array $data) {
-			return $this->twig()->render($this->template, $data);
+			$this->twig()->getLoader()->setTemplate('template', $this->template);
+			return $this->twig()->render('template', $data);
 		});
 	}
 
@@ -35,6 +36,6 @@ class String extends View
 
 	protected function getLoader()
 	{
-		return new Loader;
+		return new Loader([]);
 	}
 }
