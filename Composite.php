@@ -4,7 +4,7 @@ namespace def\View;
 class Composite extends View
 {
 	/**
-	 * @var View[]
+	 * @var View[][]
 	 */
 	protected $views = [];
 
@@ -12,8 +12,15 @@ class Composite extends View
 	{
 		$data = \array_merge($data, $this->data);
 
-		foreach($this->views as $key => $view) {
-			$data[$key] = $view->fetch($data);
+		foreach($this->views as $key => $views) {
+
+			$content = '';
+
+			foreach($views as $view) {
+				$content .= $view->fetch($data);
+			}
+
+			$data[$key] = $content;
 		}
 
 		return parent::fetch($data);
@@ -23,23 +30,31 @@ class Composite extends View
 	 * @param View $view
 	 * @param string|null $key
 	 * @param boolean $append
-	 * @return View
 	 */
 	public function attach(View $view, $key, $append = false)
 	{
-		if($append && isset($this->views[$key])) {
-			$prev = $this->views[$key];
-			$view = new View(function(array $data) use($view, $prev) {
-				return $prev->fetch($data) . $view->fetch($data);
-			});
+		if($append) {
+			$this->views[$key][] = $view;
+		} else {
+			$this->views[$key]   = [$view];
 		}
-
-		return $this->views[$key] = $view;
 	}
 
-	public function detach($key)
+	/**
+	 * @param string $key
+	 * @param View|null $view
+	 */
+	public function detach($key, View $view = null)
 	{
-		unset($this->views[$key]);
+		if(!isset($this->views[$key])) {
+			return;
+		}
+
+		if(!isset($view)) {
+			unset($this->views[$key]);
+		} elseif(false !== $pos = \array_search($view, $this->views[$key], true)) {
+			unset($this->views[$key][$pos]);
+		}
 	}
 
 }
