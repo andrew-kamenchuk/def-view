@@ -26,7 +26,7 @@ trait TwigTrait
 	{
 		$this->twig()->setCache($cache);
 
-		if($cache) {
+		if(false !== $cache) {
 			if($autoreload)
 				$this->twig()->enableAutoReload();
 			else
@@ -45,6 +45,50 @@ trait TwigTrait
 		} else {
 			$this->twig()->disableDebug();
 		}
+	}
+
+	/**
+	 * @param string $charset
+	 */
+	public function setCharset($charset)
+	{
+		$this->twig()->setCharset($charset);
+	}
+
+	/**
+	 * @param boolean $strict
+	 */
+	public function setStrictVariables($strict = true)
+	{
+		if($strict) {
+			$this->twig()->enableStrictVariables();
+		} else {
+			$this->twig()->disableStrictVariables();
+		}
+	}
+
+	/**
+	 * @see \Twig_SimpleFilter::__construct
+	 */
+	public function addFilter($name, callable $filter, array $options = [])
+	{
+		$this->twig()->addFilter(new \Twig_SimpleFilter($name, $filter, $options));
+	}
+
+	/**
+	 * @see \Twig_SimpleFunction::__construct
+	 */
+	public function addFunction($name, callable $function, array $options = [])
+	{
+		return $this->twig()->addFunction(new \Twig_SimpleFunction($name, $function, $options));
+	}
+
+	/**
+	 * @param \Twig_ExtensionInterface $extension
+	 */
+	public function addExtension(\Twig_ExtensionInterface $extension)
+	{
+		$this->twig()->addExtension($extension);	
 	}
 
 	/**

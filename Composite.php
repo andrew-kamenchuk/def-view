@@ -8,15 +8,15 @@ class Composite extends View
 	 */
 	protected $views = [];
 
-	public function __construct(callable $formatter)
+	public function fetch(array $data = [])
 	{
-		parent::__construct(function(array $data) use($formatter) {
-			$partial = [];
-			foreach($this->views as $key => $view) {
-				$partial[$key] = $view->fetch($data);
-			}
-			return $formatter(\array_merge($data, $partial));
-		});
+		$data = \array_merge($data, $this->data);
+
+		foreach($this->views as $key => $view) {
+			$data[$key] = $view->fetch($data);
+		}
+
+		return parent::fetch($data);
 	}
 
 	/**
@@ -25,22 +25,16 @@ class Composite extends View
 	 * @param boolean $append
 	 * @return View
 	 */
-	public function attach(View $view, $key = null, $append = false)
+	public function attach(View $view, $key, $append = false)
 	{
-		if(!isset($key)) {
-			$this->views[] = $view;
-		} elseif($append && isset($this->views[$key])) {
+		if($append && isset($this->views[$key])) {
 			$prev = $this->views[$key];
-
-			$this->views[$key] = new View(function(array $data) use($view, $prev) {
+			$view = new View(function(array $data) use($view, $prev) {
 				return $prev->fetch($data) . $view->fetch($data);
 			});
-
-		} else {
-			$this->views[$key] = $view;
 		}
 
-		return $view;
+		return $this->views[$key] = $view;
 	}
 
 	public function detach($key)

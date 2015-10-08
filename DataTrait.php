@@ -33,9 +33,8 @@ trait DataTrait
 	 */
 	public function assignArray(array $data, callable ...$filters)
 	{
-		foreach($filters as $filter) {
+		foreach($filters as $filter)
 			$data = \array_map($filter, $data);
-		}
 
 		$this->data = \array_merge($this->data, $data);
 	}
@@ -96,11 +95,10 @@ trait DataTrait
 	 */
 	public function filter($key, callable $filter = null)
 	{
-		if(!isset($filter)) {
+		if(1 == \func_num_args())
 			return $this->filters[$key];
-		}
 
-		$this->filters[$key] = $filter;
+		return $this->filters[$key] = $filter;
 	}
 
 }

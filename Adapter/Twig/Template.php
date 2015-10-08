@@ -4,7 +4,6 @@ namespace def\View\Adapter\Twig;
 use def\View\View;
 use def\View\Template as Base;
 use Twig_Loader_Filesystem as Loader;
-use Twig_Error_Loader;
 
 class Template extends Base
 {
@@ -13,6 +12,12 @@ class Template extends Base
 	public function __construct()
 	{
 		View::__construct(function(array $data) {
+
+			if($this->useIncludePath)
+				foreach(explode(get_include_path(), \PATH_SEPARATOR) as $path) {
+					$this->twig()->addPath($path);
+				}
+
 			return $this->twig()->render("{$this->filename}.{$this->extension}", $data);
 		});
 	}

@@ -40,7 +40,7 @@ class Template extends View
 	 */
 	public function addPath($path)
 	{
-		$this->paths[] = $path;
+		$this->paths[] = \rtrim($path, '\\/');
 		return $this;
 	}
 
@@ -50,7 +50,7 @@ class Template extends View
 	 */
 	public function prependPath($path)
 	{
-		\array_unshift($this->paths, $path);
+		\array_unshift($this->paths, \rtrim($path, '\\/'));
 		return $this;
 	}
 

@@ -8,13 +8,6 @@ class Delegate extends View
 	 */
 	protected $view;
 
-	public function __construct(callable $formatter)
-	{
-		parent::__construct(function(array $data) use($formatter) {
-			return isset($this->view) ? $this->view->fetch($data) : $formatter($data);
-		});
-	}
-
 	/**
 	 * @param View|null $view
 	 * @return View|null
@@ -22,5 +15,13 @@ class Delegate extends View
 	public function view(View $view = null)
 	{
 		return isset($view) ? $this->view = $view : $this->view;
+	}
+
+	public function fetch(array $data = [])
+	{
+		if(isset($this->view))
+			return $this->view->fetch(\array_merge($data, $this->data));
+
+		return parent::fetch($data);
 	}
 }
