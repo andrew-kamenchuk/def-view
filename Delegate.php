@@ -14,7 +14,11 @@ class Delegate extends View
 	 */
 	public function view(View $view = null)
 	{
-		return isset($view) ? $this->view = $view : $this->view;
+		if(0 == \func_num_args()) {
+			return $this->view;
+		}
+
+		return $this->view = $view;
 	}
 
 	public function fetch(array $data = [])

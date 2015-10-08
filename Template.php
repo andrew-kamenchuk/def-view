@@ -30,6 +30,7 @@ class Template extends View
 		if(!\ob_start()) {
 			return;
 		}
+		\ob_implicit_flush(false);
 		include \func_get_arg(0);
 		return \ob_get_clean();
 	}

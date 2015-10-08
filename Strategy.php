@@ -21,7 +21,7 @@ class Strategy extends View
 	 */
 	public function has($view)
 	{
-		if($view instanceOf View && false === $view = \array_search($view, $this->views)) {
+		if($view instanceOf View && false === $view = \array_search($view, $this->views, true)) {
 			return false;
 		}
 
