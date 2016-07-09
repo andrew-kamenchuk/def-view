@@ -3,46 +3,40 @@ namespace def\View;
 
 class Json extends View
 {
-	/**
-	 * @var $options
-	 */
-	protected $options = 0;
+    /**
+     * @param int json options
+     */
+    private $options = 0;
 
-	public function __construct()
-	{
-		parent::__construct(function(array $data) {
-			return \json_encode($data, $this->options);
-		});
-	}
+    /**
+     * @param int json encode depth
+     */
+    private $depth = 512;
 
-	/**
-	 * @param int $option
-	 */
-	public function setOption($option)
-	{
-		$this->options |= $option;
-	}
+    public function __construct()
+    {
+        parent::__construct(function (array $data) {
+            return \json_encode($data, $this->options, $this->depth);
+        });
+    }
 
-	/**
-	 * @param int $option
-	 */
-	public function removeOption($option)
-	{
-		$this->options &= ~$option;	
-	}
+    /**
+     * set json encode option
+     *
+     * @return void
+     */
+    public function setOption($option)
+    {
+        $this->options |= $option;
+    }
 
-	public function setPrettyPrint()
-	{
-		return $this->setOption(\JSON_PRETTY_PRINT);
-	}
+    public function removeOption($option)
+    {
+        $this->options &= ~$option;
+    }
 
-	public function setUnescapedSlashes()
-	{
-		return $this->setOption(\JSON_UNESCAPED_SLASHES);
-	}
-
-	public function setUnescapedUnicode()
-	{
-		return $this->setOption(\JSON_UNESCAPED_UNICODE);
-	}
+    public function setPrettyPrint()
+    {
+        return $this->setOption(\JSON_PRETTY_PRINT);
+    }
 }

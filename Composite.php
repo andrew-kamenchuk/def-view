@@ -3,58 +3,44 @@ namespace def\View;
 
 class Composite extends View
 {
-	/**
-	 * @var View[][]
-	 */
-	protected $views = [];
+    /**
+     * @var View[][]
+     */
+    private $views = [];
 
-	public function fetch(array $data = [])
-	{
-		$data = \array_merge($data, $this->data);
+    public function fetch(array $data = [])
+    {
+        $data    = \array_merge($this->data, $data);
+        $content = \array_fill_keys(\array_keys($this->views), '');
 
-		foreach($this->views as $key => $views) {
+        foreach ($this->views as $key => $views) {
+            foreach ($views as $view) {
+                $content[$key] .= $view->fetch($data);
+            }
+        }
 
-			$content = '';
+        return parent::fetch(\array_merge($data, $content));
+    }
 
-			foreach($views as $view) {
-				$content .= $view->fetch($data);
-			}
+    public function attach(View $view, $key, $append = false)
+    {
+        if ($append && isset($this->views[$key])) {
+            $this->views[$key][] = $view;
+        } else {
+            $this->views[$key]   = [$view];
+        }
+    }
 
-			$data[$key] = $content;
-		}
+    public function detach($key, View $view = null)
+    {
+        if (!isset($this->views[$key])) {
+            return;
+        }
 
-		return parent::fetch($data);
-	}
-
-	/**
-	 * @param View $view
-	 * @param string|null $key
-	 * @param boolean $append
-	 */
-	public function attach(View $view, $key, $append = false)
-	{
-		if($append) {
-			$this->views[$key][] = $view;
-		} else {
-			$this->views[$key]   = [$view];
-		}
-	}
-
-	/**
-	 * @param string $key
-	 * @param View|null $view
-	 */
-	public function detach($key, View $view = null)
-	{
-		if(!isset($this->views[$key])) {
-			return;
-		}
-
-		if(!isset($view)) {
-			unset($this->views[$key]);
-		} elseif(false !== $pos = \array_search($view, $this->views[$key], true)) {
-			unset($this->views[$key][$pos]);
-		}
-	}
-
+        if (!isset($view)) {
+            unset($this->views[$key]);
+        } elseif (false !== $pos = \array_search($view, $this->views[$key], true)) {
+            unset($this->views[$key][$pos]);
+        }
+    }
 }
