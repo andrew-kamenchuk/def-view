@@ -13,12 +13,14 @@ class Delegate extends View
         $this->view = $view;
     }
 
-    public function fetch(array $data = [])
+    public function __construct(callable $formatter)
     {
-        if (isset($this->view)) {
-            return $this->view->fetch(\array_merge($this->data, $data));
-        }
+        parent::__construct(function (array $data) use ($formatter) {
+            if (isset($this->view)) {
+                return $this->view->fetch($data);
+            }
 
-        return parent::fetch($data);
+            return $formatter($data);
+        });
     }
 }

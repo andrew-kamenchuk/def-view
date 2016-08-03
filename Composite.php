@@ -8,18 +8,19 @@ class Composite extends View
      */
     private $views = [];
 
-    public function fetch(array $data = [])
+    public function __construct(callable $formatter)
     {
-        $data    = \array_merge($this->data, $data);
-        $content = \array_fill_keys(\array_keys($this->views), '');
+        parent::__construct(function (array $data) use ($formatter) {
+            $content = array_fill_keys(array_keys($this->views), "");
 
-        foreach ($this->views as $key => $views) {
-            foreach ($views as $view) {
-                $content[$key] .= $view->fetch($data);
+            foreach ($this->views as $key => $views) {
+                foreach ($views as $view) {
+                    $content[$key] .= $view->fetch($data);
+                }
             }
-        }
 
-        return parent::fetch(\array_merge($data, $content));
+            return $formatter(array_merge($data, $content));
+        });
     }
 
     public function attach(View $view, $key, $append = false)
@@ -39,7 +40,7 @@ class Composite extends View
 
         if (!isset($view)) {
             unset($this->views[$key]);
-        } elseif (false !== $pos = \array_search($view, $this->views[$key], true)) {
+        } elseif (false !== $pos = array_search($view, $this->views[$key], true)) {
             unset($this->views[$key][$pos]);
         }
     }

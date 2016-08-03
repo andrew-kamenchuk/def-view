@@ -19,7 +19,7 @@ use def\View\Json;
 
 $json = new Json;
 
-$json->setPrettyPrint(JSON_PRETTY_PRINT);
+$json->setPrettyPrint();
 
 print $json->fetch(['some' => ['data']]);
 ```

@@ -39,8 +39,13 @@ class View
     public function fetch(array $data = [])
     {
         if (null !== $formatter = $this->formatter) {
-            return $formatter(\array_merge($this->data, $data));
+            return $formatter(array_merge($this->data, $data));
         }
+    }
+
+    public function data()
+    {
+        return $this->data;
     }
 
     /**
@@ -59,10 +64,10 @@ class View
     public function assignArray(array $data, callable ...$filters)
     {
         foreach ($filters as $filter) {
-            $data = \array_map($filter, $data);
+            $data = array_map($filter, $data);
         }
 
-        $this->data = \array_merge($this->data, $data);
+        $this->data = array_merge($this->data, $data);
     }
 
     public function filter($key, callable $filter = null)
@@ -76,6 +81,6 @@ class View
 
     public function assigned($key)
     {
-        return isset($this->data[$key]) || \array_key_exists($this->data[$key]);
+        return isset($this->data[$key]) || array_key_exists($this->data[$key]);
     }
 }
