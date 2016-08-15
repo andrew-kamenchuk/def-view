@@ -10,10 +10,6 @@ $view = new View(function (array $data) {
 print $view->fetch(['username' => 'guest']);
 ```
 
-*Note: callable constructor argument formats your data into string*
-
-There is also some predefined `View` classes, like `Json`:
-
 ```php
 use def\View\Json;
 
